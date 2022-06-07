@@ -8,17 +8,18 @@ generator client {
 }
 
 model User {
-  firstName       String?
-  id              String         @id @default(cuid())
-  jobApplicants   JobApplicant[]
-  jobOfferings    JobOffering[]
-  lastName        String?
-  location        String?
-  mail            String?
-  password        String
-  roles           String[]
-  telephoneNumber String?
-  username        String         @unique
+  firstName        String?
+  housingOfferings HousingOffering[]
+  id               String            @id @default(cuid())
+  jobApplicants    JobApplicant[]
+  jobOfferings     JobOffering[]
+  lastName         String?
+  location         String?
+  mail             String?
+  password         String
+  roles            String[]
+  telephoneNumber  String?
+  username         String            @unique
 }
 
 model JobOffering {
@@ -45,6 +46,21 @@ model JobApplicant {
   updatedAt     DateTime    @updatedAt
   user          User        @relation(fields: [userId], references: [id])
   userId        String
+}
+
+model HousingOffering {
+  address     String
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+  city        String
+  createdAt   DateTime @default(now())
+  description String
+  id          String   @id @default(cuid())
+  price       Int
+  roomsNumber Int
+  size        Float
+  title       String
+  updatedAt   DateTime @updatedAt
 }
 
 enum EnumJobOfferingPositionLevel {
