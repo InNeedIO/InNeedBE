@@ -1,0 +1,86 @@
+[
+  {
+    "role": "needy",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "JobOffering",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "JobOffering",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "JobOffering",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "JobOffering",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "JobOffering",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "JobOffering",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "JobOffering",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "JobOffering",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "JobOffering",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "JobOffering",
+    "action": "read:any",
+    "attributes": "*"
+  }
+]
