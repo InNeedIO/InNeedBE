@@ -1,7 +1,9 @@
+import { JobApplicantUpdateManyWithoutUsersInput } from "./JobApplicantUpdateManyWithoutUsersInput";
 import { JobOfferingUpdateManyWithoutUsersInput } from "./JobOfferingUpdateManyWithoutUsersInput";
 
 export type UserUpdateInput = {
   firstName?: string | null;
+  jobApplicants?: JobApplicantUpdateManyWithoutUsersInput;
   jobOfferings?: JobOfferingUpdateManyWithoutUsersInput;
   lastName?: string | null;
   location?: string | null;

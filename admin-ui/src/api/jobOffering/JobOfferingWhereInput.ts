@@ -1,6 +1,7 @@
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { JobApplicantListRelationFilter } from "../jobApplicant/JobApplicantListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 
 export type JobOfferingWhereInput = {
@@ -8,6 +9,7 @@ export type JobOfferingWhereInput = {
   city?: StringFilter;
   description?: StringNullableFilter;
   id?: StringFilter;
+  jobApplicants?: JobApplicantListRelationFilter;
   maxSalary?: IntFilter;
   minSalary?: IntFilter;
   positionLevel?: "Junior" | "Mid" | "Senior";

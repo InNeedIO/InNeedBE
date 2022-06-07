@@ -20,6 +20,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { JobApplicantCreateNestedManyWithoutJobOfferingsInput } from "./JobApplicantCreateNestedManyWithoutJobOfferingsInput";
 import { EnumJobOfferingPositionLevel } from "./EnumJobOfferingPositionLevel";
 import { EnumJobOfferingWorkingMode } from "./EnumJobOfferingWorkingMode";
 @InputType()
@@ -51,6 +52,18 @@ class JobOfferingCreateInput {
     nullable: true,
   })
   description?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => JobApplicantCreateNestedManyWithoutJobOfferingsInput,
+  })
+  @ValidateNested()
+  @Type(() => JobApplicantCreateNestedManyWithoutJobOfferingsInput)
+  @IsOptional()
+  @Field(() => JobApplicantCreateNestedManyWithoutJobOfferingsInput, {
+    nullable: true,
+  })
+  jobApplicants?: JobApplicantCreateNestedManyWithoutJobOfferingsInput;
 
   @ApiProperty({
     required: true,

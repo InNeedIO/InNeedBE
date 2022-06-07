@@ -15,6 +15,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { JobApplicantListRelationFilter } from "../../jobApplicant/base/JobApplicantListRelationFilter";
 import { JobOfferingListRelationFilter } from "../../jobOffering/base/JobOfferingListRelationFilter";
 @InputType()
 class UserWhereInput {
@@ -39,6 +40,18 @@ class UserWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => JobApplicantListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => JobApplicantListRelationFilter)
+  @IsOptional()
+  @Field(() => JobApplicantListRelationFilter, {
+    nullable: true,
+  })
+  jobApplicants?: JobApplicantListRelationFilter;
 
   @ApiProperty({
     required: false,

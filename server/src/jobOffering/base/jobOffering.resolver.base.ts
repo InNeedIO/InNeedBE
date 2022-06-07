@@ -25,6 +25,8 @@ import { DeleteJobOfferingArgs } from "./DeleteJobOfferingArgs";
 import { JobOfferingFindManyArgs } from "./JobOfferingFindManyArgs";
 import { JobOfferingFindUniqueArgs } from "./JobOfferingFindUniqueArgs";
 import { JobOffering } from "./JobOffering";
+import { JobApplicantFindManyArgs } from "../../jobApplicant/base/JobApplicantFindManyArgs";
+import { JobApplicant } from "../../jobApplicant/base/JobApplicant";
 import { User } from "../../user/base/User";
 import { JobOfferingService } from "../jobOffering.service";
 
@@ -157,6 +159,26 @@ export class JobOfferingResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [JobApplicant])
+  @nestAccessControl.UseRoles({
+    resource: "JobApplicant",
+    action: "read",
+    possession: "any",
+  })
+  async jobApplicants(
+    @graphql.Parent() parent: JobOffering,
+    @graphql.Args() args: JobApplicantFindManyArgs
+  ): Promise<JobApplicant[]> {
+    const results = await this.service.findJobApplicants(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

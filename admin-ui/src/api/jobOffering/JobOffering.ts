@@ -1,4 +1,5 @@
 import { User } from "../user/User";
+import { JobApplicant } from "../jobApplicant/JobApplicant";
 
 export type JobOffering = {
   author?: User;
@@ -6,6 +7,7 @@ export type JobOffering = {
   createdAt: Date;
   description: string | null;
   id: string;
+  jobApplicants?: Array<JobApplicant>;
   maxSalary: number;
   minSalary: number;
   positionLevel?: "Junior" | "Mid" | "Senior" | null;

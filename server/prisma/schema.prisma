@@ -9,7 +9,8 @@ generator client {
 
 model User {
   firstName       String?
-  id              String        @id @default(cuid())
+  id              String         @id @default(cuid())
+  jobApplicants   JobApplicant[]
   jobOfferings    JobOffering[]
   lastName        String?
   location        String?
@@ -17,7 +18,7 @@ model User {
   password        String
   roles           String[]
   telephoneNumber String?
-  username        String        @unique
+  username        String         @unique
 }
 
 model JobOffering {
@@ -27,11 +28,23 @@ model JobOffering {
   createdAt     DateTime                      @default(now())
   description   String?
   id            String                        @id @default(cuid())
+  jobApplicants JobApplicant[]
   maxSalary     Int
   minSalary     Int
   positionLevel EnumJobOfferingPositionLevel?
   title         String
   workingMode   EnumJobOfferingWorkingMode
+}
+
+model JobApplicant {
+  createdAt     DateTime    @default(now())
+  id            String      @id @default(cuid())
+  isAccepted    Boolean
+  jobOffering   JobOffering @relation(fields: [jobOfferingId], references: [id])
+  jobOfferingId String
+  updatedAt     DateTime    @updatedAt
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
 }
 
 enum EnumJobOfferingPositionLevel {

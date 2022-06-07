@@ -7,10 +7,12 @@ import {
   TextField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
   DateField,
+  BooleanField,
+  ReferenceField,
 } from "react-admin";
 
+import { JOBOFFERING_TITLE_FIELD } from "../jobOffering/JobOfferingTitle";
 import { USER_TITLE_FIELD } from "./UserTitle";
 
 export const UserShow = (props: ShowProps): React.ReactElement => {
@@ -25,6 +27,28 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Roles" source="roles" />
         <TextField label="Telephone number" source="telephoneNumber" />
         <TextField label="Username" source="username" />
+        <ReferenceManyField
+          reference="JobApplicant"
+          target="UserId"
+          label="Job applicants"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="Is Accepted" source="isAccepted" />
+            <ReferenceField
+              label="Job Offering"
+              source="joboffering.id"
+              reference="JobOffering"
+            >
+              <TextField source={JOBOFFERING_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="User" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField
           reference="JobOffering"
           target="UserId"

@@ -10,7 +10,7 @@ https://docs.amplication.com/docs/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, User, JobOffering } from "@prisma/client";
+import { Prisma, User, JobApplicant, JobOffering } from "@prisma/client";
 import { PasswordService } from "../../auth/password.service";
 import { transformStringFieldUpdateInput } from "../../prisma.util";
 
@@ -70,6 +70,17 @@ export class UserServiceBase {
     args: Prisma.SelectSubset<T, Prisma.UserDeleteArgs>
   ): Promise<User> {
     return this.prisma.user.delete(args);
+  }
+
+  async findJobApplicants(
+    parentId: string,
+    args: Prisma.JobApplicantFindManyArgs
+  ): Promise<JobApplicant[]> {
+    return this.prisma.user
+      .findUnique({
+        where: { id: parentId },
+      })
+      .jobApplicants(args);
   }
 
   async findJobOfferings(
