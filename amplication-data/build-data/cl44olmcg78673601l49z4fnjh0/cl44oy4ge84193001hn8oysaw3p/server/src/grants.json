@@ -1,0 +1,26 @@
+[
+  {
+    "role": "needy",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  }
+]
