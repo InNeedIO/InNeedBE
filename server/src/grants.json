@@ -142,5 +142,65 @@
     "resource": "JobApplicant",
     "action": "read:any",
     "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "HousingOffering",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "HousingOffering",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "HousingOffering",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "HousingOffering",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "HousingOffering",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "HousingOffering",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "HousingOffering",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "HousingOffering",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "needy",
+    "resource": "HousingOffering",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "helper",
+    "resource": "HousingOffering",
+    "action": "read:any",
+    "attributes": "*"
   }
 ]

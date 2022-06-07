@@ -28,6 +28,9 @@ import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
+import { HousingOfferingFindManyArgs } from "../../housingOffering/base/HousingOfferingFindManyArgs";
+import { HousingOffering } from "../../housingOffering/base/HousingOffering";
+import { HousingOfferingWhereUniqueInput } from "../../housingOffering/base/HousingOfferingWhereUniqueInput";
 import { JobApplicantFindManyArgs } from "../../jobApplicant/base/JobApplicantFindManyArgs";
 import { JobApplicant } from "../../jobApplicant/base/JobApplicant";
 import { JobApplicantWhereUniqueInput } from "../../jobApplicant/base/JobApplicantWhereUniqueInput";
@@ -196,6 +199,115 @@ export class UserControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "HousingOffering",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/housingOfferings")
+  @ApiNestedQuery(HousingOfferingFindManyArgs)
+  async findManyHousingOfferings(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<HousingOffering[]> {
+    const query = plainToClass(HousingOfferingFindManyArgs, request.query);
+    const results = await this.service.findHousingOfferings(params.id, {
+      ...query,
+      select: {
+        address: true,
+
+        author: {
+          select: {
+            id: true,
+          },
+        },
+
+        city: true,
+        createdAt: true,
+        description: true,
+        id: true,
+        price: true,
+        roomsNumber: true,
+        size: true,
+        title: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/housingOfferings")
+  async connectHousingOfferings(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: HousingOfferingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      housingOfferings: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/housingOfferings")
+  async updateHousingOfferings(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: HousingOfferingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      housingOfferings: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/housingOfferings")
+  async disconnectHousingOfferings(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: HousingOfferingWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      housingOfferings: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

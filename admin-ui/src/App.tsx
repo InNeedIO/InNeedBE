@@ -17,6 +17,10 @@ import { JobApplicantList } from "./jobApplicant/JobApplicantList";
 import { JobApplicantCreate } from "./jobApplicant/JobApplicantCreate";
 import { JobApplicantEdit } from "./jobApplicant/JobApplicantEdit";
 import { JobApplicantShow } from "./jobApplicant/JobApplicantShow";
+import { HousingOfferingList } from "./housingOffering/HousingOfferingList";
+import { HousingOfferingCreate } from "./housingOffering/HousingOfferingCreate";
+import { HousingOfferingEdit } from "./housingOffering/HousingOfferingEdit";
+import { HousingOfferingShow } from "./housingOffering/HousingOfferingShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -63,6 +67,13 @@ const App = (): React.ReactElement => {
           edit={JobApplicantEdit}
           create={JobApplicantCreate}
           show={JobApplicantShow}
+        />
+        <Resource
+          name="HousingOffering"
+          list={HousingOfferingList}
+          edit={HousingOfferingEdit}
+          create={HousingOfferingCreate}
+          show={HousingOfferingShow}
         />
       </Admin>
     </div>

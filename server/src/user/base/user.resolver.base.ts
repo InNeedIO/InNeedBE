@@ -26,6 +26,8 @@ import { DeleteUserArgs } from "./DeleteUserArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
+import { HousingOfferingFindManyArgs } from "../../housingOffering/base/HousingOfferingFindManyArgs";
+import { HousingOffering } from "../../housingOffering/base/HousingOffering";
 import { JobApplicantFindManyArgs } from "../../jobApplicant/base/JobApplicantFindManyArgs";
 import { JobApplicant } from "../../jobApplicant/base/JobApplicant";
 import { JobOfferingFindManyArgs } from "../../jobOffering/base/JobOfferingFindManyArgs";
@@ -134,6 +136,26 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [HousingOffering])
+  @nestAccessControl.UseRoles({
+    resource: "HousingOffering",
+    action: "read",
+    possession: "any",
+  })
+  async housingOfferings(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: HousingOfferingFindManyArgs
+  ): Promise<HousingOffering[]> {
+    const results = await this.service.findHousingOfferings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
