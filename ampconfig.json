@@ -1,0 +1,19 @@
+{
+  "dataServiceGeneratorVersion": "0.13.0",
+  "appInfo": {
+    "name": "InNeedBE",
+    "description": "",
+    "version": "0p0zv239",
+    "id": "cl44olmcg78673601l49z4fnjh0",
+    "url": "https://server.amplication.com/cl44olmcg78673601l49z4fnjh0",
+    "settings": {
+      "dbHost": "localhost",
+      "dbName": "",
+      "dbPassword": "admin",
+      "dbPort": 5432,
+      "dbUser": "admin",
+      "appId": "cl44olmcg78673601l49z4fnjh0",
+      "authProvider": "Jwt"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  firstName       String?
+  id              String        @id @default(cuid())
+  jobOfferings    JobOffering[]
+  lastName        String?
+  location        String?
+  mail            String?
+  password        String
+  roles           String[]
+  telephoneNumber String?
+  username        String        @unique
+}
+
+model JobOffering {
+  author        User                          @relation(fields: [authorId], references: [id])
+  authorId      String
+  city          String
+  createdAt     DateTime                      @default(now())
+  description   String?
+  id            String                        @id @default(cuid())
+  maxSalary     Int
+  minSalary     Int
+  positionLevel EnumJobOfferingPositionLevel?
+  title         String
+  workingMode   EnumJobOfferingWorkingMode
+}
+
+enum EnumJobOfferingPositionLevel {
+  Junior
+  Mid
+  Senior
+}
+
+enum EnumJobOfferingWorkingMode {
+  Remote
+  Onsite
+  Hybrid
+}
