@@ -15,11 +15,13 @@ import {
   IsString,
   ValidateNested,
   IsDate,
+  IsOptional,
   IsInt,
   IsNumber,
 } from "class-validator";
 import { User } from "../../user/base/User";
 import { Type } from "class-transformer";
+import { HousingApplicant } from "../../housingApplicant/base/HousingApplicant";
 @ObjectType()
 class HousingOffering {
   @ApiProperty({
@@ -61,6 +63,15 @@ class HousingOffering {
   @IsString()
   @Field(() => String)
   description!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [HousingApplicant],
+  })
+  @ValidateNested()
+  @Type(() => HousingApplicant)
+  @IsOptional()
+  housingApplicants?: Array<HousingApplicant>;
 
   @ApiProperty({
     required: true,

@@ -10,6 +10,7 @@ import {
   PasswordInput,
 } from "react-admin";
 
+import { HousingApplicantTitle } from "../housingApplicant/HousingApplicantTitle";
 import { HousingOfferingTitle } from "../housingOffering/HousingOfferingTitle";
 import { JobApplicantTitle } from "../jobApplicant/JobApplicantTitle";
 import { JobOfferingTitle } from "../jobOffering/JobOfferingTitle";
@@ -20,6 +21,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
     <Create {...props}>
       <SimpleForm>
         <TextInput label="First Name" source="firstName" />
+        <ReferenceArrayInput
+          source="housingApplicants"
+          reference="HousingApplicant"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={HousingApplicantTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="housingOfferings"
           reference="HousingOffering"

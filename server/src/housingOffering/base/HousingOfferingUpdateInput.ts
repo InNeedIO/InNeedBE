@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
+import { HousingApplicantUpdateManyWithoutHousingOfferingsInput } from "./HousingApplicantUpdateManyWithoutHousingOfferingsInput";
 @InputType()
 class HousingOfferingUpdateInput {
   @ApiProperty({
@@ -66,6 +67,18 @@ class HousingOfferingUpdateInput {
     nullable: true,
   })
   description?: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => HousingApplicantUpdateManyWithoutHousingOfferingsInput,
+  })
+  @ValidateNested()
+  @Type(() => HousingApplicantUpdateManyWithoutHousingOfferingsInput)
+  @IsOptional()
+  @Field(() => HousingApplicantUpdateManyWithoutHousingOfferingsInput, {
+    nullable: true,
+  })
+  housingApplicants?: HousingApplicantUpdateManyWithoutHousingOfferingsInput;
 
   @ApiProperty({
     required: false,

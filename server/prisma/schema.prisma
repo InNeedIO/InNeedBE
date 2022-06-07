@@ -8,18 +8,19 @@ generator client {
 }
 
 model User {
-  firstName        String?
-  housingOfferings HousingOffering[]
-  id               String            @id @default(cuid())
-  jobApplicants    JobApplicant[]
-  jobOfferings     JobOffering[]
-  lastName         String?
-  location         String?
-  mail             String?
-  password         String
-  roles            String[]
-  telephoneNumber  String?
-  username         String            @unique
+  firstName         String?
+  housingApplicants HousingApplicant[]
+  housingOfferings  HousingOffering[]
+  id                String             @id @default(cuid())
+  jobApplicants     JobApplicant[]
+  jobOfferings      JobOffering[]
+  lastName          String?
+  location          String?
+  mail              String?
+  password          String
+  roles             String[]
+  telephoneNumber   String?
+  username          String             @unique
 }
 
 model JobOffering {
@@ -49,18 +50,30 @@ model JobApplicant {
 }
 
 model HousingOffering {
-  address     String
-  author      User     @relation(fields: [authorId], references: [id])
-  authorId    String
-  city        String
-  createdAt   DateTime @default(now())
-  description String
-  id          String   @id @default(cuid())
-  price       Int
-  roomsNumber Int
-  size        Float
-  title       String
-  updatedAt   DateTime @updatedAt
+  address           String
+  author            User               @relation(fields: [authorId], references: [id])
+  authorId          String
+  city              String
+  createdAt         DateTime           @default(now())
+  description       String
+  housingApplicants HousingApplicant[]
+  id                String             @id @default(cuid())
+  price             Int
+  roomsNumber       Int
+  size              Float
+  title             String
+  updatedAt         DateTime           @updatedAt
+}
+
+model HousingApplicant {
+  author            User?           @relation(fields: [authorId], references: [id])
+  authorId          String?
+  createdAt         DateTime        @default(now())
+  housingOffering   HousingOffering @relation(fields: [housingOfferingId], references: [id])
+  housingOfferingId String
+  id                String          @id @default(cuid())
+  isAccepted        Boolean?
+  updatedAt         DateTime        @updatedAt
 }
 
 enum EnumJobOfferingPositionLevel {

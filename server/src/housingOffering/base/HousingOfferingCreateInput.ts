@@ -11,9 +11,16 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, ValidateNested, IsInt, IsNumber } from "class-validator";
+import {
+  IsString,
+  ValidateNested,
+  IsOptional,
+  IsInt,
+  IsNumber,
+} from "class-validator";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
+import { HousingApplicantCreateNestedManyWithoutHousingOfferingsInput } from "./HousingApplicantCreateNestedManyWithoutHousingOfferingsInput";
 @InputType()
 class HousingOfferingCreateInput {
   @ApiProperty({
@@ -48,6 +55,18 @@ class HousingOfferingCreateInput {
   @IsString()
   @Field(() => String)
   description!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => HousingApplicantCreateNestedManyWithoutHousingOfferingsInput,
+  })
+  @ValidateNested()
+  @Type(() => HousingApplicantCreateNestedManyWithoutHousingOfferingsInput)
+  @IsOptional()
+  @Field(() => HousingApplicantCreateNestedManyWithoutHousingOfferingsInput, {
+    nullable: true,
+  })
+  housingApplicants?: HousingApplicantCreateNestedManyWithoutHousingOfferingsInput;
 
   @ApiProperty({
     required: true,
