@@ -27,6 +27,9 @@ import { JobOfferingWhereUniqueInput } from "./JobOfferingWhereUniqueInput";
 import { JobOfferingFindManyArgs } from "./JobOfferingFindManyArgs";
 import { JobOfferingUpdateInput } from "./JobOfferingUpdateInput";
 import { JobOffering } from "./JobOffering";
+import { JobApplicantFindManyArgs } from "../../jobApplicant/base/JobApplicantFindManyArgs";
+import { JobApplicant } from "../../jobApplicant/base/JobApplicant";
+import { JobApplicantWhereUniqueInput } from "../../jobApplicant/base/JobApplicantWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class JobOfferingControllerBase {
@@ -243,5 +246,114 @@ export class JobOfferingControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "JobApplicant",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/jobApplicants")
+  @ApiNestedQuery(JobApplicantFindManyArgs)
+  async findManyJobApplicants(
+    @common.Req() request: Request,
+    @common.Param() params: JobOfferingWhereUniqueInput
+  ): Promise<JobApplicant[]> {
+    const query = plainToClass(JobApplicantFindManyArgs, request.query);
+    const results = await this.service.findJobApplicants(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        isAccepted: true,
+
+        jobOffering: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "JobOffering",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/jobApplicants")
+  async connectJobApplicants(
+    @common.Param() params: JobOfferingWhereUniqueInput,
+    @common.Body() body: JobApplicantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      jobApplicants: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "JobOffering",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/jobApplicants")
+  async updateJobApplicants(
+    @common.Param() params: JobOfferingWhereUniqueInput,
+    @common.Body() body: JobApplicantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      jobApplicants: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "JobOffering",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/jobApplicants")
+  async disconnectJobApplicants(
+    @common.Param() params: JobOfferingWhereUniqueInput,
+    @common.Body() body: JobApplicantWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      jobApplicants: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

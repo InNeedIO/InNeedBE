@@ -26,6 +26,8 @@ import { DeleteUserArgs } from "./DeleteUserArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
+import { JobApplicantFindManyArgs } from "../../jobApplicant/base/JobApplicantFindManyArgs";
+import { JobApplicant } from "../../jobApplicant/base/JobApplicant";
 import { JobOfferingFindManyArgs } from "../../jobOffering/base/JobOfferingFindManyArgs";
 import { JobOffering } from "../../jobOffering/base/JobOffering";
 import { UserService } from "../user.service";
@@ -132,6 +134,26 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [JobApplicant])
+  @nestAccessControl.UseRoles({
+    resource: "JobApplicant",
+    action: "read",
+    possession: "any",
+  })
+  async jobApplicants(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: JobApplicantFindManyArgs
+  ): Promise<JobApplicant[]> {
+    const results = await this.service.findJobApplicants(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

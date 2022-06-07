@@ -21,6 +21,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { JobApplicant } from "../../jobApplicant/base/JobApplicant";
 import { EnumJobOfferingPositionLevel } from "./EnumJobOfferingPositionLevel";
 import { EnumJobOfferingWorkingMode } from "./EnumJobOfferingWorkingMode";
 @ObjectType()
@@ -67,6 +68,15 @@ class JobOffering {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [JobApplicant],
+  })
+  @ValidateNested()
+  @Type(() => JobApplicant)
+  @IsOptional()
+  jobApplicants?: Array<JobApplicant>;
 
   @ApiProperty({
     required: true,

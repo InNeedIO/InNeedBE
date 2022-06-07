@@ -16,6 +16,7 @@ import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { JobApplicantListRelationFilter } from "../../jobApplicant/base/JobApplicantListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { EnumJobOfferingPositionLevel } from "./EnumJobOfferingPositionLevel";
 import { EnumJobOfferingWorkingMode } from "./EnumJobOfferingWorkingMode";
@@ -65,6 +66,18 @@ class JobOfferingWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => JobApplicantListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => JobApplicantListRelationFilter)
+  @IsOptional()
+  @Field(() => JobApplicantListRelationFilter, {
+    nullable: true,
+  })
+  jobApplicants?: JobApplicantListRelationFilter;
 
   @ApiProperty({
     required: false,

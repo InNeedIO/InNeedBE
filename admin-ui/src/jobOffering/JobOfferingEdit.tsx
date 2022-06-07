@@ -7,10 +7,13 @@ import {
   ReferenceInput,
   SelectInput,
   TextInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
   NumberInput,
 } from "react-admin";
 
 import { UserTitle } from "../user/UserTitle";
+import { JobApplicantTitle } from "../jobApplicant/JobApplicantTitle";
 
 export const JobOfferingEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -21,6 +24,14 @@ export const JobOfferingEdit = (props: EditProps): React.ReactElement => {
         </ReferenceInput>
         <TextInput label="City" source="city" />
         <TextInput label="Description" multiline source="description" />
+        <ReferenceArrayInput
+          source="jobApplicants"
+          reference="JobApplicant"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={JobApplicantTitle} />
+        </ReferenceArrayInput>
         <NumberInput step={1} label="Max salary" source="maxSalary" />
         <NumberInput step={1} label="Min salary" source="minSalary" />
         <SelectInput

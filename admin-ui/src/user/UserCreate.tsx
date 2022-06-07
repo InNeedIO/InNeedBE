@@ -10,6 +10,7 @@ import {
   PasswordInput,
 } from "react-admin";
 
+import { JobApplicantTitle } from "../jobApplicant/JobApplicantTitle";
 import { JobOfferingTitle } from "../jobOffering/JobOfferingTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
@@ -18,6 +19,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
     <Create {...props}>
       <SimpleForm>
         <TextInput label="First Name" source="firstName" />
+        <ReferenceArrayInput
+          source="jobApplicants"
+          reference="JobApplicant"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={JobApplicantTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="jobOfferings"
           reference="JobOffering"
