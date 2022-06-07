@@ -12,8 +12,9 @@ https://docs.amplication.com/docs/how-to/custom-code
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { HousingOffering } from "../../housingOffering/base/HousingOffering";
+import { HousingApplicant } from "../../housingApplicant/base/HousingApplicant";
 import { Type } from "class-transformer";
+import { HousingOffering } from "../../housingOffering/base/HousingOffering";
 import { JobApplicant } from "../../jobApplicant/base/JobApplicant";
 import { JobOffering } from "../../jobOffering/base/JobOffering";
 @ObjectType()
@@ -28,6 +29,15 @@ class User {
     nullable: true,
   })
   firstName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [HousingApplicant],
+  })
+  @ValidateNested()
+  @Type(() => HousingApplicant)
+  @IsOptional()
+  housingApplicants?: Array<HousingApplicant>;
 
   @ApiProperty({
     required: false,

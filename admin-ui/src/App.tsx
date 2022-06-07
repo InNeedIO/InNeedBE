@@ -21,6 +21,10 @@ import { HousingOfferingList } from "./housingOffering/HousingOfferingList";
 import { HousingOfferingCreate } from "./housingOffering/HousingOfferingCreate";
 import { HousingOfferingEdit } from "./housingOffering/HousingOfferingEdit";
 import { HousingOfferingShow } from "./housingOffering/HousingOfferingShow";
+import { HousingApplicantList } from "./housingApplicant/HousingApplicantList";
+import { HousingApplicantCreate } from "./housingApplicant/HousingApplicantCreate";
+import { HousingApplicantEdit } from "./housingApplicant/HousingApplicantEdit";
+import { HousingApplicantShow } from "./housingApplicant/HousingApplicantShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -74,6 +78,13 @@ const App = (): React.ReactElement => {
           edit={HousingOfferingEdit}
           create={HousingOfferingCreate}
           show={HousingOfferingShow}
+        />
+        <Resource
+          name="HousingApplicant"
+          list={HousingApplicantList}
+          edit={HousingApplicantEdit}
+          create={HousingApplicantCreate}
+          show={HousingApplicantShow}
         />
       </Admin>
     </div>

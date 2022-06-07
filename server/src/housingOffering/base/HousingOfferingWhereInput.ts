@@ -15,6 +15,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { HousingApplicantListRelationFilter } from "../../housingApplicant/base/HousingApplicantListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { FloatFilter } from "../../util/FloatFilter";
 @InputType()
@@ -63,6 +64,18 @@ class HousingOfferingWhereInput {
     nullable: true,
   })
   description?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => HousingApplicantListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => HousingApplicantListRelationFilter)
+  @IsOptional()
+  @Field(() => HousingApplicantListRelationFilter, {
+    nullable: true,
+  })
+  housingApplicants?: HousingApplicantListRelationFilter;
 
   @ApiProperty({
     required: false,

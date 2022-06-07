@@ -1,4 +1,5 @@
 import { User } from "../user/User";
+import { HousingApplicant } from "../housingApplicant/HousingApplicant";
 
 export type HousingOffering = {
   address: string;
@@ -6,6 +7,7 @@ export type HousingOffering = {
   city: string;
   createdAt: Date;
   description: string;
+  housingApplicants?: Array<HousingApplicant>;
   id: string;
   price: number;
   roomsNumber: number;

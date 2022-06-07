@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { HousingApplicantListRelationFilter } from "../../housingApplicant/base/HousingApplicantListRelationFilter";
 import { HousingOfferingListRelationFilter } from "../../housingOffering/base/HousingOfferingListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { JobApplicantListRelationFilter } from "../../jobApplicant/base/JobApplicantListRelationFilter";
@@ -30,6 +31,18 @@ class UserWhereInput {
     nullable: true,
   })
   firstName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => HousingApplicantListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => HousingApplicantListRelationFilter)
+  @IsOptional()
+  @Field(() => HousingApplicantListRelationFilter, {
+    nullable: true,
+  })
+  housingApplicants?: HousingApplicantListRelationFilter;
 
   @ApiProperty({
     required: false,

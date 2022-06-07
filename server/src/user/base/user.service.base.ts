@@ -13,6 +13,7 @@ import { PrismaService } from "nestjs-prisma";
 import {
   Prisma,
   User,
+  HousingApplicant,
   HousingOffering,
   JobApplicant,
   JobOffering,
@@ -76,6 +77,17 @@ export class UserServiceBase {
     args: Prisma.SelectSubset<T, Prisma.UserDeleteArgs>
   ): Promise<User> {
     return this.prisma.user.delete(args);
+  }
+
+  async findHousingApplicants(
+    parentId: string,
+    args: Prisma.HousingApplicantFindManyArgs
+  ): Promise<HousingApplicant[]> {
+    return this.prisma.user
+      .findUnique({
+        where: { id: parentId },
+      })
+      .housingApplicants(args);
   }
 
   async findHousingOfferings(

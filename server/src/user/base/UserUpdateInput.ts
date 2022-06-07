@@ -12,8 +12,9 @@ https://docs.amplication.com/docs/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { HousingOfferingUpdateManyWithoutUsersInput } from "./HousingOfferingUpdateManyWithoutUsersInput";
+import { HousingApplicantUpdateManyWithoutUsersInput } from "./HousingApplicantUpdateManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { HousingOfferingUpdateManyWithoutUsersInput } from "./HousingOfferingUpdateManyWithoutUsersInput";
 import { JobApplicantUpdateManyWithoutUsersInput } from "./JobApplicantUpdateManyWithoutUsersInput";
 import { JobOfferingUpdateManyWithoutUsersInput } from "./JobOfferingUpdateManyWithoutUsersInput";
 @InputType()
@@ -28,6 +29,18 @@ class UserUpdateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => HousingApplicantUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => HousingApplicantUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => HousingApplicantUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  housingApplicants?: HousingApplicantUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
