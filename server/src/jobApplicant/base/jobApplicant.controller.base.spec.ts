@@ -1,12 +1,12 @@
-import { Test } from "@nestjs/testing";
-import { INestApplication, HttpStatus, ExecutionContext } from "@nestjs/common";
+import {ExecutionContext, HttpStatus, INestApplication} from "@nestjs/common";
+import {Test} from "@nestjs/testing";
+import {ACGuard} from "nest-access-control";
+import {MorganModule} from "nest-morgan";
 import request from "supertest";
-import { MorganModule } from "nest-morgan";
-import { ACGuard } from "nest-access-control";
-import { DefaultAuthGuard } from "../../auth/defaultAuth.guard";
-import { ACLModule } from "../../auth/acl.module";
-import { JobApplicantController } from "../jobApplicant.controller";
-import { JobApplicantService } from "../jobApplicant.service";
+import {ACLModule} from "../../auth/acl.module";
+import {DefaultAuthGuard} from "../../auth/defaultAuth.guard";
+import {JobApplicantController} from "../jobApplicant.controller";
+import {JobApplicantService} from "../jobApplicant.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -57,7 +57,7 @@ const basicAuthGuard = {
     const argumentHost = context.switchToHttp();
     const request = argumentHost.getRequest();
     request.user = {
-      roles: ["user"],
+      roles: ["admin"],
     };
     return true;
   },
