@@ -51,6 +51,8 @@ export class JobOfferingControllerBase {
         author: {
           select: {
             id: true,
+            firstName:true,
+            lastName:true,
           },
         },
 
@@ -85,6 +87,8 @@ export class JobOfferingControllerBase {
         author: {
           select: {
             id: true,
+            firstName:true,
+            lastName:true,
           },
         },
 
@@ -120,6 +124,8 @@ export class JobOfferingControllerBase {
         author: {
           select: {
             id: true,
+            firstName:true,
+            lastName:true,
           },
         },
 
@@ -170,6 +176,8 @@ export class JobOfferingControllerBase {
           author: {
             select: {
               id: true,
+              firstName:true,
+              lastName:true,
             },
           },
 
@@ -213,6 +221,8 @@ export class JobOfferingControllerBase {
           author: {
             select: {
               id: true,
+              firstName:true,
+              lastName:true,
             },
           },
 

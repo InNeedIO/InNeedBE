@@ -53,6 +53,8 @@ export class HousingOfferingControllerBase {
         author: {
           select: {
             id: true,
+            firstName:true,
+            lastName:true,
           },
         },
 
@@ -89,6 +91,8 @@ export class HousingOfferingControllerBase {
         author: {
           select: {
             id: true,
+            firstName:true,
+            lastName:true,
           },
         },
 
@@ -126,6 +130,8 @@ export class HousingOfferingControllerBase {
         author: {
           select: {
             id: true,
+            firstName:true,
+            lastName:true,
           },
         },
 
@@ -178,6 +184,8 @@ export class HousingOfferingControllerBase {
           author: {
             select: {
               id: true,
+              firstName:true,
+              lastName:true,
             },
           },
 
@@ -223,6 +231,8 @@ export class HousingOfferingControllerBase {
           author: {
             select: {
               id: true,
+              firstName:true,
+              lastName:true,
             },
           },
 
