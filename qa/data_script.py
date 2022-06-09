@@ -1,11 +1,16 @@
+import os
 import random
 import requests as r
 import faker as f
 import json
+from dotenv_config import Config
 from token_bearer import bearer_token
 
 f = f.Faker()
-url = "localhost"
+
+config = Config('.env')
+
+url = config("API_URL")
 access_token = {"Authorization": bearer_token()}
 auth_url = f"{url}/login"
 users_url = f"{url}/users"
@@ -13,6 +18,7 @@ housing_offering_url = f"{url}/housingOfferings"
 housing_applicant_url = f"{url}/housingApplicants"
 job_offering_url = f"{url}/jobOfferings"
 job_applicant_url = f"{url}/jobApplicants"
+users_count = config("USERS_COUNT", int)
 
 
 def users_payload(username, role):
