@@ -8,7 +8,7 @@ from token_bearer import bearer_token
 
 f = f.Faker()
 
-config = Config('.env')
+config = Config('../.env')
 
 url = config("API_URL")
 access_token = {"Authorization": bearer_token()}
