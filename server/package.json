@@ -46,6 +46,9 @@
     "ts-node": "9.1.1"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^9.1.2",
+    "prisma-docs-generator": "^0.5.0",
+    "prisma-erd-generator": "^0.11.4",
     "@nestjs/cli": "8.1.5",
     "@nestjs/testing": "8.2.3",
     "@types/bcrypt": "5.0.0",
