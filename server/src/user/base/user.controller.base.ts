@@ -5,6 +5,7 @@ import {Request} from "express";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import {ApiNestedQuery} from "../../decorators/api-nested-query.decorator";
+import {CurrentUser} from "../../decorators/currentUser.decorator";
 import {Public} from "../../decorators/public.decorator";
 import * as errors from "../../errors";
 import {HousingApplicant} from "../../housingApplicant/base/HousingApplicant";
@@ -82,6 +83,42 @@ export class UserControllerBase {
         username: true,
       },
     });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "own",
+  })
+  @common.Get("/me")
+  @swagger.ApiOkResponse({ type: User })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
+  async findMe(
+      @CurrentUser() user: User
+  ): Promise<User | null> {
+    const result = await this.service.findOne({
+      where: {
+        id: user.id
+      },
+      select: {
+        firstName: true,
+        id: true,
+        lastName: true,
+        location: true,
+        mail: true,
+        roles: true,
+        telephoneNumber: true,
+        username: true,
+      },
+    });
+    if (result === null) {
+      throw new errors.NotFoundException(
+          `No resource was found for ${user?.id}`
+      );
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
