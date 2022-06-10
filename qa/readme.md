@@ -1,4 +1,4 @@
-## In order to execute correctly insert your bearer token into token.py file:
+## In order to execute correctly insert your bearer token into token_bearer.py file:
 ```py
 def bearer_token():
     return "Bearer {token}"
