@@ -377,7 +377,8 @@ export class UserControllerBase {
           select: {
             id: true,
             author:true,
-            isAccepted:true
+            isAccepted:true,
+            housingOffering:true
           },
         },
 
@@ -601,7 +602,8 @@ export class UserControllerBase {
           select: {
             id: true,
             user:true,
-            isAccepted:true
+            isAccepted:true,
+            jobOffering:true
           },
         },
 
