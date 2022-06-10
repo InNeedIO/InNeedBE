@@ -24,9 +24,8 @@ users_count = config("USERS_COUNT", int)
 def users_payload(username, role):
     # roles: needy, helper
     return {
-        "description": f.slug(),
-        "first_name": f.first_name(),
-        "last_name": f.last_name(),
+        "firstName": f.first_name(),
+        "lastName": f.last_name(),
         "password": "test_password",
         "roles": role,
         "username": username
@@ -37,11 +36,11 @@ def housing_offering_payload(user_id):
     city = f.city()
     return {
         "address": f.street_address(),
-        "author_id": {"id": user_id},
+        "author": {"id": user_id},
         "city": city,
         "description": f"{f.slug()}{user_id}",
         "price": random.randint(1000, 10000),
-        "rooms_number": random.randint(1, 5),
+        "roomsNumber": random.randint(1, 5),
         "size": random.randint(15, 100),
         "title": f"{city}_{f.slug()}"
     }
@@ -54,28 +53,36 @@ def job_offering_payload(user_id):
     working_mode = random.choice(working_modes)
     position_level = random.choice(position_levels)
     return {
-        "author_id": {"id": user_id},
+        "author": {"id": user_id},
         "city": f.city(),
         "description": f"{job}_{user_id}",
-        "max_salary": random.randint(5000, 10000),
-        "min_salary": random.randint(1000, 4999),
-        "position_level": position_level,
+        "maxSalary": random.randint(5000, 10000),
+        "minSalary": random.randint(1000, 4999),
+        "positionLevel": position_level,
         "title": job,
-        "working_mode": working_mode
+        "workingMode": working_mode
     }
 
 
 def housing_applicant_payload(user_id, offer_id):
     return {
-        "authorId": user_id,
-        "housingOfferingId": offer_id
+        "author": {
+        	"id": user_id
+        },
+        "housingOffering": {
+        	"id": offer_id
+        }
     }
 
 
 def job_applicant_payload(user_id, offer_id):
     return {
-        "authorId": user_id,
-        "jobOfferingId": offer_id
+    	 "author": {
+         	"id": user_id
+         },
+         "jobOffering": {
+         	"id": offer_id
+         }
     }
 
 
@@ -87,14 +94,14 @@ def get_user_id(username):
 
 
 def get_job_offering_id(user_id):
-    get_job_offering_url = f"{job_offering_url}?where%5Bauthor_id%5D[id]={user_id}"
+    get_job_offering_url = f"{job_offering_url}?where%5Bauthor%5D[id]={user_id}"
     get_job_offering = r.get(get_job_offering_url, headers=access_token)
     tmp = json.loads(get_job_offering.text)
     return str(tmp[0]["id"])
 
 
 def get_housing_offering_id(user_id):
-    get_housing_offering_url = f"{housing_offering_url}?where%5Bauthor_id%5D[id]={user_id}"
+    get_housing_offering_url = f"{housing_offering_url}?where%5Bauthor%5D[id]={user_id}"
     get_housing_offering = r.get(get_housing_offering_url, headers=access_token)
     tmp = json.loads(get_housing_offering.text)
     return str(tmp[0]["id"])
@@ -107,10 +114,9 @@ def create_users(users_number):
         r.post(users_url, data=users_payload(helper_username, "helper"))
         helper_id = get_user_id(helper_username)
         # create housing offer
-        r.post(housing_offering_url, json=housing_applicant_payload(helper_id), headers=access_token)
+        r.post(housing_offering_url, json=housing_offering_payload(helper_id), headers=access_token)
         # create job offer
         r.post(job_offering_url, json=job_offering_payload(helper_id), headers=access_token)
-
         # create needy
         needy_username = f.simple_profile()['username']
         r.post(users_url, data=users_payload(needy_username, "needy"))
@@ -138,7 +144,7 @@ def create_needy(needy_number):
 
 
 def main():
-    create_users(5)
+    create_users(users_count)
 
 
 if __name__ == "__main__":
