@@ -5,6 +5,7 @@ import {Request} from "express";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import {ApiNestedQuery} from "../../decorators/api-nested-query.decorator";
+import {CurrentUser} from "../../decorators/currentUser.decorator";
 import * as errors from "../../errors";
 import {AclFilterResponseInterceptor} from "../../interceptors/aclFilterResponse.interceptor";
 import {AclValidateRequestInterceptor} from "../../interceptors/aclValidateRequest.interceptor";
@@ -12,6 +13,7 @@ import {JobApplicant} from "../../jobApplicant/base/JobApplicant";
 import {JobApplicantFindManyArgs} from "../../jobApplicant/base/JobApplicantFindManyArgs";
 import {JobApplicantWhereUniqueInput} from "../../jobApplicant/base/JobApplicantWhereUniqueInput";
 import {isRecordNotFoundError} from "../../prisma.util";
+import {User} from "../../user/base/User";
 import {JobOfferingService} from "../jobOffering.service";
 import {JobOffering} from "./JobOffering";
 import {JobOfferingCreateInput} from "./JobOfferingCreateInput";
@@ -53,6 +55,7 @@ export class JobOfferingControllerBase {
             id: true,
             firstName:true,
             lastName:true,
+            roles: true
           },
         },
 
@@ -79,9 +82,12 @@ export class JobOfferingControllerBase {
   @swagger.ApiOkResponse({ type: [JobOffering] })
   @swagger.ApiForbiddenResponse()
   @ApiNestedQuery(JobOfferingFindManyArgs)
-  async findMany(@common.Req() request: Request): Promise<JobOffering[]> {
+  async findMany(@common.Req() request: Request, @CurrentUser() user: User): Promise<JobOffering[]> {
     const args = plainToClass(JobOfferingFindManyArgs, request.query);
-    return this.service.findMany({
+
+    const userRole = user?.roles[0];
+
+    const data = await   this.service.findMany({
       ...args,
       select: {
         author: {
@@ -89,6 +95,7 @@ export class JobOfferingControllerBase {
             id: true,
             firstName:true,
             lastName:true,
+            roles: true
           },
         },
 
@@ -103,6 +110,11 @@ export class JobOfferingControllerBase {
         workingMode: true,
       },
     });
+
+    const filteredOfferings: JobOffering[] = data.filter(
+        (item: JobOffering) => (!item?.author?.roles.includes(userRole) && item?.author?.id != user.id) ?? true);
+
+    return filteredOfferings;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -126,6 +138,7 @@ export class JobOfferingControllerBase {
             id: true,
             firstName:true,
             lastName:true,
+            roles: true
           },
         },
 
@@ -178,6 +191,7 @@ export class JobOfferingControllerBase {
               id: true,
               firstName:true,
               lastName:true,
+              roles: true
             },
           },
 
@@ -223,6 +237,7 @@ export class JobOfferingControllerBase {
               id: true,
               firstName:true,
               lastName:true,
+              roles: true
             },
           },
 
