@@ -59,6 +59,14 @@ export class JobOfferingControllerBase {
           },
         },
 
+
+        jobApplicants: {
+          select: {
+            id: true,
+          },
+        },
+
+
         city: true,
         createdAt: true,
         description: true,
@@ -98,6 +106,13 @@ export class JobOfferingControllerBase {
             roles: true
           },
         },
+
+        jobApplicants: {
+          select: {
+            id: true,
+          },
+        },
+
 
         city: true,
         createdAt: true,
@@ -141,6 +156,14 @@ export class JobOfferingControllerBase {
             roles: true
           },
         },
+
+
+        jobApplicants: {
+          select: {
+            id: true,
+          },
+        },
+
 
         city: true,
         createdAt: true,
@@ -195,6 +218,12 @@ export class JobOfferingControllerBase {
             },
           },
 
+          jobApplicants: {
+            select: {
+              id: true,
+            },
+          },
+
           city: true,
           createdAt: true,
           description: true,
@@ -240,6 +269,14 @@ export class JobOfferingControllerBase {
               roles: true
             },
           },
+
+
+          jobApplicants: {
+            select: {
+              id: true,
+            },
+          },
+
 
           city: true,
           createdAt: true,

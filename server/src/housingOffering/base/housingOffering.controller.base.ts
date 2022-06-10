@@ -61,6 +61,12 @@ export class HousingOfferingControllerBase {
 					},
 				},
 
+				housingApplicants: {
+					select: {
+						id: true,
+					},
+				},
+
 				city: true,
 				createdAt: true,
 				description: true,
@@ -100,6 +106,12 @@ export class HousingOfferingControllerBase {
 						firstName: true,
 						lastName: true,
 						roles: true
+					},
+				},
+
+				housingApplicants: {
+					select: {
+						id: true,
 					},
 				},
 
@@ -145,6 +157,12 @@ export class HousingOfferingControllerBase {
 						firstName: true,
 						lastName: true,
 						roles: true
+					},
+				},
+
+				housingApplicants: {
+					select: {
+						id: true,
 					},
 				},
 
@@ -203,6 +221,12 @@ export class HousingOfferingControllerBase {
 						},
 					},
 
+					housingApplicants: {
+						select: {
+							id: true,
+						},
+					},
+
 					city: true,
 					createdAt: true,
 					description: true,
@@ -248,6 +272,12 @@ export class HousingOfferingControllerBase {
 							firstName: true,
 							lastName: true,
 							roles: true
+						},
+					},
+
+					housingApplicants: {
+						select: {
+							id: true,
 						},
 					},
 

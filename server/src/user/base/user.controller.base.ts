@@ -363,6 +363,12 @@ export class UserControllerBase {
           },
         },
 
+        housingApplicants: {
+          select: {
+            id: true,
+          },
+        },
+
         city: true,
         createdAt: true,
         description: true,
@@ -574,6 +580,12 @@ export class UserControllerBase {
       ...query,
       select: {
         author: {
+          select: {
+            id: true,
+          },
+        },
+
+        jobApplicants: {
           select: {
             id: true,
           },
