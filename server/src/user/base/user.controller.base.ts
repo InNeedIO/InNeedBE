@@ -81,6 +81,8 @@ export class UserControllerBase {
         roles: true,
         telephoneNumber: true,
         username: true,
+        housingOfferings: true,
+        jobOfferings: true
       },
     });
   }
@@ -111,6 +113,8 @@ export class UserControllerBase {
         roles: true,
         telephoneNumber: true,
         username: true,
+        housingOfferings: true,
+        jobOfferings: true
       },
     });
     if (result === null) {
@@ -145,6 +149,8 @@ export class UserControllerBase {
         roles: true,
         telephoneNumber: true,
         username: true,
+        housingOfferings: true,
+        jobOfferings: true
       },
     });
     if (result === null) {
@@ -182,6 +188,8 @@ export class UserControllerBase {
           roles: true,
           telephoneNumber: true,
           username: true,
+          housingOfferings: true,
+          jobOfferings: true
         },
       });
     } catch (error) {
@@ -218,6 +226,8 @@ export class UserControllerBase {
           roles: true,
           telephoneNumber: true,
           username: true,
+          housingOfferings: true,
+          jobOfferings: true
         },
       });
     } catch (error) {
