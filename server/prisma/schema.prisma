@@ -35,7 +35,7 @@ model User {
 }
 
 model JobOffering {
-  author        User                          @relation(fields: [authorId], references: [id])
+  author        User                          @relation(fields: [authorId], references: [id],  onDelete: Cascade)
   authorId      String
   city          String
   createdAt     DateTime                      @default(now())
@@ -53,10 +53,10 @@ model JobApplicant {
   createdAt     DateTime    @default(now())
   id            String      @id @default(cuid())
   isAccepted    Boolean
-  jobOffering   JobOffering @relation(fields: [jobOfferingId], references: [id])
+  jobOffering   JobOffering @relation(fields: [jobOfferingId], references: [id], onDelete: Cascade)
   jobOfferingId String
   updatedAt     DateTime    @updatedAt
-  user          User        @relation(fields: [userId], references: [id])
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String
 }
 
@@ -77,10 +77,10 @@ model HousingOffering {
 }
 
 model HousingApplicant {
-  author            User?           @relation(fields: [authorId], references: [id])
+  author            User?           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId          String?
   createdAt         DateTime        @default(now())
-  housingOffering   HousingOffering @relation(fields: [housingOfferingId], references: [id])
+  housingOffering   HousingOffering @relation(fields: [housingOfferingId], references: [id], onDelete: Cascade)
   housingOfferingId String
   id                String          @id @default(cuid())
   isAccepted        Boolean?
