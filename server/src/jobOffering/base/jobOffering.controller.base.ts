@@ -63,6 +63,7 @@ export class JobOfferingControllerBase {
         jobApplicants: {
           select: {
             id: true,
+            user:true
           },
         },
 
@@ -110,6 +111,7 @@ export class JobOfferingControllerBase {
         jobApplicants: {
           select: {
             id: true,
+            user:true
           },
         },
 
@@ -161,6 +163,7 @@ export class JobOfferingControllerBase {
         jobApplicants: {
           select: {
             id: true,
+            user:true
           },
         },
 
@@ -221,6 +224,7 @@ export class JobOfferingControllerBase {
           jobApplicants: {
             select: {
               id: true,
+              user:true
             },
           },
 
@@ -274,6 +278,7 @@ export class JobOfferingControllerBase {
           jobApplicants: {
             select: {
               id: true,
+              user:true
             },
           },
 

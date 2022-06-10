@@ -64,6 +64,7 @@ export class HousingOfferingControllerBase {
 				housingApplicants: {
 					select: {
 						id: true,
+						author:true
 					},
 				},
 
@@ -112,6 +113,7 @@ export class HousingOfferingControllerBase {
 				housingApplicants: {
 					select: {
 						id: true,
+						author:true
 					},
 				},
 
@@ -163,6 +165,7 @@ export class HousingOfferingControllerBase {
 				housingApplicants: {
 					select: {
 						id: true,
+						author:true
 					},
 				},
 
@@ -224,6 +227,7 @@ export class HousingOfferingControllerBase {
 					housingApplicants: {
 						select: {
 							id: true,
+							author:true
 						},
 					},
 
@@ -278,6 +282,7 @@ export class HousingOfferingControllerBase {
 					housingApplicants: {
 						select: {
 							id: true,
+							author:true
 						},
 					},
 
